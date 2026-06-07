@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PP Matura – Themenpool 1–8</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0e0d;
+  --surface: #1a1917;
+  --surface2: #232220;
+  --surface3: #2a2927;
+  --border: rgba(255,255,255,0.08);
+  --text: #f0ece4;
+  --muted: #8a8680;
+  --accent: #e8b86d;
+  --t1: #6ea8e8; --t2: #7ec8a4; --t3: #e8b86d; --t4: #a07ed4;
+  --t5: #60b8d8; --t6: #7ec87e; --t7: #c07ed4; --t8: #e07a7a;
+  --r: 10px;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.7;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 2.5rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(110,168,232,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1.1;
+}
+header h1 span { color: var(--accent); }
+.header-sub { margin-top: 0.5rem; color: var(--muted); font-size: 0.85rem; letter-spacing: 0.05em; }
+
+/* ── MODE BAR ── */
+.mode-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.mode-bar-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.mode-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.75rem; font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.mode-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+.mode-btn.active { color: var(--accent); border-color: var(--accent); background: rgba(232,184,109,0.08); }
+.score-overview-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.75rem; font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex; align-items: center; gap: 0.4rem;
+  margin-left: auto;
+}
+.score-overview-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+/* ── NAV TABS ── */
+nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+  display: flex;
+  gap: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+nav::-webkit-scrollbar { display: none; }
+.nav-btn {
+  padding: 0.9rem 1.1rem;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.75rem; font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--muted);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.15s;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+  text-align: center;
+  position: relative;
+  overflow: visible;
+}
+.nav-btn:hover { color: var(--text); }
+.nav-btn.active { color: var(--tab-c); border-bottom-color: var(--tab-c); }
+
+/* Tab score badge */
+.tab-score {
+  position: absolute;
+  top: -6px; right: -4px;
+  font-size: 13px; line-height: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.7));
+}
+@keyframes dangerShake { 0%,100%{transform:rotate(0)} 15%{transform:rotate(-14deg) scale(1.2)} 30%{transform:rotate(13deg) scale(1.2)} 45%{transform:rotate(-9deg)} 60%{transform:rotate(8deg)} 75%{transform:rotate(-4deg)} }
+@keyframes warningWobble { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-8deg)} 75%{transform:rotate(8deg)} }
+@keyframes okPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.25)} }
+@keyframes goodBounce { 0%,100%{transform:translateY(0)} 40%{transform:translateY(-4px)} 60%{transform:translateY(-2px)} }
+@keyframes perfectSpin { 0%{transform:rotate(0) scale(1)} 50%{transform:rotate(20deg) scale(1.2)} 100%{transform:rotate(0) scale(1)} }
+.score-danger  { animation: dangerShake   1.4s ease-in-out infinite; }
+.score-warning { animation: warningWobble 2s   ease-in-out infinite; }
+.score-ok      { animation: okPulse       2.5s ease-in-out infinite; }
+.score-good    { animation: goodBounce    2s   ease-in-out infinite; }
+.score-perfect { animation: perfectSpin   2s   ease-in-out infinite; }
+
+/* ── MAIN LAYOUT ── */
+main { max-width: 980px; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+.tp-section { display: none; }
+.tp-section.active { display: block; }
+
+/* ── BANNER ── */
+.tp-banner {
+  border-radius: var(--r);
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.75rem;
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.tp-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.4);
+}
+.tp-banner h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem; font-weight: 900;
+  color: #fff; position: relative; z-index: 1;
+  line-height: 1.15;
+}
+.tp-banner p { font-size: 0.82rem; margin-top: 0.3rem; color: rgba(255,255,255,0.6); position: relative; z-index: 1; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  margin-bottom: 0.9rem;
+  overflow: visible;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+.card:hover { border-color: rgba(255,255,255,0.14); }
+.card-head {
+  padding: 0.9rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  gap: 0.75rem;
+  border-radius: var(--r);
+}
+.card-head h3 {
+  font-size: 0.9rem; font-weight: 600;
+  display: flex; align-items: center; gap: 0.5rem;
+  flex: 1; color: var(--text);
+}
+.src-badge {
+  font-size: 0.65rem; font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 5px;
+  flex-shrink: 0; letter-spacing: 0.04em;
+}
+.chevron { font-size: 0.7rem; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; }
+.card-head.open .chevron { transform: rotate(180deg); }
+.card-body { padding: 0 1.2rem; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.2s; }
+.card-body.open { max-height: 5000px; padding: 0 1.2rem 1.2rem; }
+
+/* ── CONTROLS on card ── */
+.card-controls {
+  position: absolute;
+  top: 0.55rem; right: 0.7rem;
+  display: flex; align-items: center; gap: 3px;
+  z-index: 20;
+}
+.rating-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  background: transparent; cursor: pointer;
+  transition: all 0.15s; padding: 0; flex-shrink: 0;
+}
+.rating-dot:hover { transform: scale(1.4); border-color: rgba(255,255,255,0.5); }
+.rating-dot[data-val="1"] { --dc: #ef5350; }
+.rating-dot[data-val="2"] { --dc: #ff9800; }
+.rating-dot[data-val="3"] { --dc: #fdd835; }
+.rating-dot[data-val="4"] { --dc: #8bc34a; }
+.rating-dot[data-val="5"] { --dc: #4caf50; }
+.rating-dot.active { background: var(--dc); border-color: var(--dc); box-shadow: 0 0 5px var(--dc); }
+
+.done-btn, .irr-btn {
+  width: 19px; height: 19px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  background: transparent; cursor: pointer;
+  font-size: 8px; color: transparent;
+  transition: all 0.18s;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; line-height: 1; flex-shrink: 0;
+}
+.done-btn::after { content: '✓'; }
+.irr-btn::after  { content: '—'; font-size: 10px; }
+.done-btn:hover, .irr-btn:hover { border-color: rgba(255,255,255,0.45); color: rgba(255,255,255,0.4); }
+.is-done .done-btn    { border-color: #4caf50; color: #4caf50; }
+.is-done .done-btn:hover { border-color: #ef5350; color: #ef5350; }
+.is-irrelevant .irr-btn { border-color: #555; color: #555; }
+
+/* Rating border */
+.card[data-rating="1"] { border-left: 3px solid #ef5350 !important; }
+.card[data-rating="2"] { border-left: 3px solid #ff9800 !important; }
+.card[data-rating="3"] { border-left: 3px solid #fdd835 !important; }
+.card[data-rating="4"] { border-left: 3px solid #8bc34a !important; }
+.card[data-rating="5"] { border-left: 3px solid #4caf50 !important; }
+
+/* Done state */
+.card.is-done { opacity: 0.25; filter: grayscale(0.5); transition: opacity 0.3s, filter 0.3s; }
+.card.is-done:hover { opacity: 0.5; }
+.card.is-done .card-controls { opacity: 1 !important; filter: none !important; }
+
+/* Irrelevant state */
+.card.is-irrelevant { opacity: 0.28; filter: grayscale(1) brightness(0.6); transition: opacity 0.3s, filter 0.3s; }
+.card.is-irrelevant * { font-style: italic !important; font-weight: 300 !important; color: #555 !important; }
+.card.is-irrelevant .card-controls, .card.is-irrelevant .card-controls * { font-style: normal !important; font-weight: normal !important; color: inherit !important; }
+.card.is-irrelevant:hover { opacity: 0.5; }
+
+/* ── CONTENT ELEMENTS ── */
+.key {
+  background: var(--surface2);
+  border-left: 3px solid;
+  border-radius: 0 8px 8px 0;
+  padding: 0.65rem 0.9rem;
+  margin: 0.5rem 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+.key strong { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; color: var(--muted); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 0.6rem 0; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin: 0.6rem 0; }
+@media(max-width:600px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+.mini {
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-size: 0.855rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+.mini h4 { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.3rem; color: var(--muted); }
+.theorist { background: var(--surface2); border-radius: 8px; padding: 0.75rem; font-size: 0.855rem; }
+.theorist h4 { font-weight: 600; font-size: 0.875rem; margin-bottom: 0.2rem; color: var(--text); }
+.theorist p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+ul.pts { list-style: none; padding: 0; margin: 0.4rem 0; }
+ul.pts li { padding: 0.25rem 0 0.25rem 1.1rem; font-size: 0.875rem; border-bottom: 1px solid var(--border); position: relative; color: var(--text); }
+ul.pts li:last-child { border: none; }
+ul.pts li::before { content: "→"; position: absolute; left: 0; color: var(--muted); }
+.exp { border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem; margin: 0.5rem 0; font-size: 0.875rem; background: var(--surface2); }
+.exp h4 { font-weight: 600; margin-bottom: 0.2rem; color: var(--text); }
+.exp p { color: var(--muted); font-size: 0.83rem; line-height: 1.5; }
+table.t { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin: 0.6rem 0; }
+table.t th { background: var(--surface2); padding: 0.4rem 0.6rem; text-align: left; font-weight: 600; font-size: 0.72rem; border-bottom: 1px solid var(--border); color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+table.t td { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); font-size: 0.84rem; }
+table.t tr:last-child td { border: none; }
+.tip { background: rgba(232,184,109,0.08); border-left: 3px solid #e8b86d; border-radius: 0 8px 8px 0; padding: 0.6rem 0.9rem; font-size: 0.855rem; margin: 0.5rem 0; color: var(--text); }
+p.body { font-size: 0.9rem; margin: 0.3rem 0; line-height: 1.65; color: var(--text); }
+h4.sub { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin: 0.8rem 0 0.3rem; }
+
+/* ── BOTTOM BADGES ── */
+.done-counter {
+  position: fixed; bottom: 1.2rem; right: 1.2rem;
+  background: rgba(20,18,17,0.92); border: 1px solid var(--border);
+  border-radius: 20px; padding: 0.4rem 0.9rem;
+  font-size: 0.75rem; color: var(--muted);
+  z-index: 1000; pointer-events: none; display: none;
+}
+.done-counter.visible { display: block; }
+.done-counter span { color: #4caf50; font-weight: 700; }
+.rating-legend {
+  position: fixed; bottom: 1.2rem; left: 1.2rem;
+  background: rgba(20,18,17,0.92); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0.5rem 0.9rem;
+  font-size: 0.73rem; color: var(--muted);
+  z-index: 1000; pointer-events: none;
+  display: none; flex-direction: column; gap: 0.35rem;
+}
+.rating-legend.visible { display: flex; }
+.rating-legend-row { display: flex; align-items: center; gap: 0.4rem; }
+.rating-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── OVERVIEW PANEL ── */
+.score-overview-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1999; }
+.score-overview-backdrop.open { display: block; }
+.score-overview-panel {
+  display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+  padding: 1.5rem; z-index: 2000;
+  min-width: 320px; max-width: 480px; width: 90vw;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  animation: panelIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes panelIn { from{transform:translate(-50%,-52%) scale(.92);opacity:0} to{transform:translate(-50%,-50%) scale(1);opacity:1} }
+.score-overview-panel.open { display: block; }
+.score-overview-panel h3 {
+  font-family: 'Playfair Display', serif; font-size: 1.1rem;
+  color: var(--text); margin-bottom: 1rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.score-overview-panel h3 button { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.1rem; }
+.score-overview-panel h3 button:hover { color: var(--text); }
+.overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.overview-item {
+  background: var(--surface2); border-radius: 7px;
+  padding: 0.5rem 0.7rem; display: flex; align-items: center;
+  gap: 0.5rem; border-left: 3px solid transparent;
+}
+.overview-item .ov-emoji { font-size: 1.1rem; }
+.overview-item .ov-name { font-size: 0.73rem; color: var(--muted); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.overview-item .ov-bar-wrap { width: 36px; height: 4px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
+.overview-item .ov-bar { height: 100%; border-radius: 3px; transition: width 0.5s; }
+.overview-item .ov-score { font-size: 0.7rem; font-weight: 700; min-width: 20px; text-align: right; }
+.overview-item.ov-irrelevant { opacity: 0.35; filter: grayscale(0.8); border-color: #333 !important; }
+.overview-item.ov-irrelevant .ov-name { font-style: italic; font-weight: 300; }
+
+/* ── FOOTER ── */
+footer { background: var(--surface); border-top: 1px solid var(--border); text-align: center; padding: 1.5rem; font-size: 0.8rem; color: var(--muted); margin-top: 2rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PP Matura<br><span>Themenpool 1–8</span></h1>
+  <p class="header-sub">Psychologie &amp; Philosophie · Zusammenfassung aller Themenpools (inkl. Matura-Fokus)</p>
+</header>
+
+<div class="mode-bar">
+  <span class="mode-bar-label">Modus</span>
+  <button class="mode-btn active" data-mode="full" onclick="setMode('full')">📖 Vollständig</button>
+  <button class="mode-btn" data-mode="short" onclick="setMode('short')">⚡ Kompakt</button>
+  <button class="score-overview-btn" onclick="openScoreOverview()">📊 Wissensstand</button>
+</div>
+
+<nav id="mainnav">
+  <button class="nav-btn active" onclick="show('t1',this)" style="--tab-c:var(--t1)">01<br>Wahrnehmung</button>
+  <button class="nav-btn" onclick="show('t2',this)" style="--tab-c:var(--t2)">02<br>Wissenschaft</button>
+  <button class="nav-btn" onclick="show('t3',this)" style="--tab-c:var(--t3)">03<br>Entwicklung</button>
+  <button class="nav-btn" onclick="show('t4',this)" style="--tab-c:var(--t4)">04<br>Lernen</button>
+  <button class="nav-btn" onclick="show('t5',this)" style="--tab-c:var(--t5)">05<br>Gesellschaft</button>
+  <button class="nav-btn" onclick="show('t6',this)" style="--tab-c:var(--t6)">06<br>Existenz</button>
+  <button class="nav-btn" onclick="show('t7',this)" style="--tab-c:var(--t7)">07<br>Anthropologie</button>
+  <button class="nav-btn" onclick="show('t8',this)" style="--tab-c:var(--t8)">08<br>Ethik</button>
+</nav>
+
+<main>
+
+<!-- ══════════════ THEMA 01 ══════════════ -->
+<div id="t1" class="tp-section active">
+  <div class="tp-banner" style="background:linear-gradient(135deg,#1e3a8a,var(--t1))">
+    <h2>Wahrnehmung &amp; Erkenntnis</h2>
+    <p>Wahrnehmungsprozesse · Sinne · Täuschungen · Konstruktivismus · Erkenntnistheorie</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head open" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(110,168,232,0.15);color:var(--t1)">Psychologie</span>Wahrnehmung – Überblick &amp; Prozess</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body open">
+      <p class="body">Wahrnehmung ist ein aktiver Konstruktionsprozess des Gehirns – nicht die Außenwelt selbst, sondern eine subjektive Interpretation davon. <strong>Heinz von Foerster:</strong> „Die Umwelt, so wie wir sie wahrnehmen, ist unsere Erfindung." <strong>Radikaler Konstruktivismus:</strong> Wir können die Wirklichkeit nie direkt erkennen – das Gehirn errechnet sinnvolle Möglichkeiten.</p>
+      <div class="grid2">
+        <div class="mini">
+          <h4>3 Phasen</h4>
+          <ol style="padding-left:1.1rem;font-size:.855rem;color:var(--text)">
+            <li><strong>Enkodierung:</strong> Wahrgenommene Infos mit bestehenden kognitiven Inhalten verknüpft.</li>
+            <li><strong>Organisation/Speicherung:</strong> Infos werden organisiert &amp; gespeichert.</li>
+            <li><strong>Abruf:</strong> Beurteilung &amp; Reaktion.</li>
+          </ol>
+        </div>
+        <div class="mini">
+          <h4>Nicht-sensorische Faktoren</h4>
+          <ul class="pts">
+            <li><strong>Stimmung &amp; Emotion</strong> – positive Stimmung → positive Wahrnehmung</li>
+            <li><strong>Erfahrung &amp; Erwartung</strong> – Vorwissen lenkt, was erkannt wird</li>
+            <li><strong>Aufmerksamkeit</strong> – selektiv: Wichtiges rein, Unwichtiges raus</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(110,168,232,0.15);color:var(--t1)">Psychologie</span>Visuelle Infoverarbeitung &amp; Täuschungen</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="grid2">
+        <div class="mini">
+          <h4>Gestaltgesetze &amp; Tiefenwahrnehmung</h4>
+          <ul class="pts">
+            <li><strong>Gestaltgesetze:</strong> Gesetz der Ähnlichkeit, der Nähe, der Geschlossenheit.</li>
+            <li><strong>Tiefenwahrnehmung:</strong> Entsteht durch monokulare (Überlappung, Größe) und binokulare (Querdisparation) Hinweisreize.</li>
+          </ul>
+        </div>
+        <div class="mini">
+          <h4>Der Stroop-Effekt</h4>
+          <p>Eine Farb-Wort-Interferenz, die bei trainierten Handlungen (Automatismen) auftritt. Wir brauchen länger, um die Schriftfarbe eines Wortes zu benennen, wenn das Wort selbst eine andere Farbe benennt (z. B. das Wort „ROT" in blauer Schrift).</p>
+        </div>
+      </div>
+      <div class="key" style="border-color:var(--t1)"><strong>Optische Täuschungen</strong>Entstehen oft durch unsere Erfahrungen und Emotionen. Beispiele: Kippbilder, geometrisch-optische Täuschungen (Müller-Lyer) oder Bewegungsillusionen (Erscheinungsbewegungen, z.B. wenn wir im stehenden Zug sitzen und der Nachbarzug anfährt).</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(126,200,164,0.15);color:var(--t2)">Philosophie</span>Philosophisches Kopfkino: Qualia &amp; Bewusstsein</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="grid2">
+        <div class="exp">
+          <h4>Gehirn im Tank (Hilary Putnam)</h4>
+          <p>Ein Gedankenexperiment: Sind wir nur ein Gehirn in einem Tank, das von Computern mit elektrischen Reizen gefüttert wird? Moderne Version von Platons Höhlengleichnis. Popkulturelle Beispiele: <em>Matrix</em> oder <em>The Truman Show</em>.</p>
+        </div>
+        <div class="exp">
+          <h4>Mary (Frank Jackson) &amp; Fledermaus (Thomas Nagel)</h4>
+          <p>Zeigen die Grenzen des Physikalismus. <strong>Qualia:</strong> Subjektive Empfindungsqualitäten. Mary weiß physikalisch alles über Farben, sieht aber erst rot, wenn sie den Schwarz-Weiß-Raum verlässt. Nagel fragt: Wie ist es, eine Fledermaus zu sein?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(110,168,232,0.15);color:var(--t1)">Psychologie</span>Werbepsychologie</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="body">Werbung nutzt das <strong>AIDA-Modell</strong> (Attention, Interest, Desire, Action). <em>Hinweis: Parapsychologie ist für die Prüfung eher zu vernachlässigen.</em></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ THEMA 02 ══════════════ -->
+<div id="t2" class="tp-section">
+  <div class="tp-banner" style="background:linear-gradient(135deg,#065f46,var(--t2))">
+    <h2>Wissenschaftlichkeit</h2>
+    <p>Alltagspsychologie vs. wissenschaftliche Psychologie · Gütekriterien · Wissenschaftstheorie · Popper · Logik</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head open" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(126,200,164,0.15);color:var(--t2)">Psychologie</span>Alltagspsychologie vs. Wissenschaftliche Psychologie</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body open">
+      <div class="grid2">
+        <div class="mini">
+          <h4>Alltagspsychologie (Naive Psychologie)</h4>
+          <p>Beruht auf persönlichen Erfahrungen, Vorurteilen und emotionalen Urteilen. Nutzt unzulässige induktive Verallgemeinerungen.<br><strong>Rückschaufehler (Hindsight-Bias):</strong> Ereignisse erscheinen im Nachhinein immer plausibel – „Ich wusste es!" – obwohl sie es nicht waren.</p>
+        </div>
+        <div class="mini">
+          <h4>Wissenschaftliche Psychologie</h4>
+          <p>Nutzt systematische Methoden wie Experimente, Studien und Umfragen, um Erleben und Verhalten objektiv zu erforschen. Erkenntnisse sind vorläufig und revidierbar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(126,200,164,0.15);color:var(--t2)">Psychologie</span>Methoden &amp; Gütekriterien</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="grid3">
+        <div class="mini"><h4>Objektivität</h4><p>Ergebnisse sind unabhängig vom Forscher. Rahmenbedingungen für alle Testgruppen müssen exakt gleich sein.</p></div>
+        <div class="mini"><h4>Reliabilität</h4><p>Messung ist zuverlässig, präzise und wiederholbar. Gleiche Bedingungen führen zu gleichen Ergebnissen.</p></div>
+        <div class="mini"><h4>Validität</h4><p>Gültigkeit: Die Methode misst tatsächlich genau das, was sie messen soll (z.B. Test misst Intelligenz, nicht nur Konzentration).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(126,200,164,0.15);color:var(--t2)">Philosophie</span>Wissenschaftstheorie &amp; Karl Popper</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="key" style="border-color:var(--t2)"><strong>Das Induktionsproblem &amp; die Truthahn-Illusion</strong>Induktion schließt vom Besonderen auf das Allgemeine. Beispiel Truthahn: Er wird täglich um 8 Uhr gefüttert und schließt induktiv, dass dies immer so bleibt – bis an Thanksgiving das Gegenteil bewiesen wird. Induktion liefert keine absolute Sicherheit!</div>
+      <div class="grid2">
+        <div class="mini">
+          <h4>Kritischer Rationalismus (Popper)</h4>
+          <p><strong>Falsifizierbarkeit:</strong> Eine Hypothese ist nur wissenschaftlich, wenn sie widerlegbar ist. Anstatt Theorien beweisen zu wollen (Verifikation), muss die Wissenschaft versuchen, sie durch Gegenbeispiele (den „schwarzen Schwan") zu widerlegen.</p>
+        </div>
+        <div class="mini">
+          <h4>Deduktion</h4>
+          <p>Vom Allgemeinen (Gesetz/Theorie) auf das Besondere schließen. Die sichere logische Methode des kritischen Rationalismus.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ THEMA 03 ══════════════ -->
+<div id="t3" class="tp-section">
+  <div class="tp-banner" style="background:linear-gradient(135deg,#92400e,var(--t3))">
+    <h2>Menschliche Entwicklung</h2>
+    <p>Kognition · Moral · Pränatal · Motorik · Erziehungsstile · Bindung · Sterbeprozess</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head open" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(232,184,109,0.15);color:var(--t3)">Psychologie</span>Pränatale, Motorische &amp; Zeichnerische Entwicklung</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body open">
+      <div class="grid2">
+        <div class="mini">
+          <h4>Motorik &amp; Reflexe</h4>
+          <p>Säuglinge sind von Geburt an mit Überlebensreflexen ausgestattet:<br>• <strong>Greifreflex:</strong> Hände schließen sich zur Faust bei Druck.<br>• <strong>Mororeflex:</strong> Umklammerungsbewegung bei Schreck/Fallen.<br>• <strong>Schreitreflex:</strong> Automatische Schritte bei Bodenkontakt.</p>
+        </div>
+        <div class="mini">
+          <h4>Entwicklung des Zeichnens</h4>
+          <p>Bildnerische Gestaltung drückt Innenleben aus.<br>• <strong>Schmierphase (1 J.):</strong> Freude an Bewegung mit Brei/Farbe.<br>• Späteres Zeichnen wird extrem genau (Kopffüßler etc.). Kritik von Erwachsenen kann hier schaden.</p>
+        </div>
+      </div>
+      <p class="body"><strong>Pränatale Entwicklung:</strong> Embryo im Mutterleib. Wichtig ist die Kontroverse zum Schwangerschaftsabbruch im ethischen Kontext.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(232,184,109,0.15);color:var(--t3)">Psychologie</span>Piaget, Bindung &amp; Erziehungsstile</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="grid3">
+        <div class="mini"><h4>Autoritärer Erziehungsstil</h4><p>Hohes Maß an Gehorsam, Strenge, Befehle. Kinder haben wenig Mitspracherecht.</p></div>
+        <div class="mini"><h4>Demokratischer Erziehungsstil</h4><p>Regeln werden erklärt und gemeinsam besprochen. Wechselseitige Akzeptanz und Partnerschaftlichkeit.</p></div>
+        <div class="mini"><h4>Laissez-faire Erziehungsstil</h4><p>Das Kind wird gewähren gelassen. Völlige Freiheit ohne Regeln oder Anforderungen.</p></div>
+      </div>
+      <h4 class="sub">Bindungsverhalten (Mary Ainsworth)</h4>
+      <p class="body"><strong>Sicher:</strong> Weint kurz, freut sich bei Rückkehr. <strong>Unsicher-vermeidend:</strong> Ignoriert Mutter fast bei Rückkehr. <strong>Unsicher-ambivalent:</strong> Klammert, schlägt oft nach Mutter bei Rückkehr, kaum zu beruhigen.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(232,184,109,0.15);color:var(--t3)">Psychologie</span>Moralische Entwicklung &amp; Der Sterbeprozess</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="grid2">
+        <div class="mini">
+          <h4>Moral (Kohlberg) &amp; Heinz-Dilemma</h4>
+          <p><strong>Heinz-Dilemma:</strong> Soll Heinz in eine Apotheke einbrechen, um ein unbezahlbares Medikament für seine sterbende Frau zu stehlen? Frage: Menschenleben &gt; Gesetz oder Gesetz &gt; Menschenleben? Dient zur Bestimmung der moralischen Stufe (Präkonventionell, Konventionell, Postkonventionell).</p>
+        </div>
+        <div class="mini">
+          <h4>Die 5 Sterbestadien (Kübler-Ross)</h4>
+          <p>Ein psychologischer Prozess bei terminal Kranken:<br>
+          1. <strong>Denial (Verleugnung)</strong><br>
+          2. <strong>Zorn</strong><br>
+          3. <strong>Verhandeln</strong> (z.B. mit Gott um Zeit feilschen)<br>
+          4. <strong>Depression</strong><br>
+          5. <strong>Acceptance (Akzeptanz)</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ THEMA 04 ══════════════ -->
+<div id="t4" class="tp-section">
+  <div class="tp-banner" style="background:linear-gradient(135deg,#4c1d95,var(--t4))">
+    <h2>Der Mensch als lernendes Wesen</h2>
+    <p>Gedächtnis · Konditionierung (Watson, Skinner) · Modelllernen · Lernstrategien</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head open" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(160,126,212,0.15);color:var(--t4)">Psychologie</span>Lerntheorien &amp; Konditionierung</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body open">
+      <div class="grid3">
+        <div class="exp">
+          <h4>Klassische Konditionierung (Watson / Pawlow)</h4>
+          <p>Reiz-Reaktions-Lernen. <strong>Experiment „Little Albert" (Watson):</strong> Ein 11 Monate altes Kind wurde konditioniert, Angst vor weißen Ratten zu haben, indem beim Anblick ein lauter Lärm erzeugt wurde.</p>
+        </div>
+        <div class="exp">
+          <h4>Operante Konditionierung (Skinner)</h4>
+          <p>Instrumentelles Lernen am Erfolg/Misserfolg. Verhalten wird durch Konsequenzen gesteuert (Verstärkung vs. Bestrafung). Die <em>Skinner-Box</em> wurde genutzt, um Tauben/Ratten zu trainieren.</p>
+        </div>
+        <div class="exp">
+          <h4>Modelllernen (Bandura)</h4>
+          <p>Lernen durch Beobachtung. Im Bobo-Doll-Experiment ahmen Kinder das aggressive Verhalten eines Erwachsenen gegenüber einer Spielzeugpuppe nach.</p>
+        </div>
+      </div>
+      <div class="key" style="border-color:var(--t4)"><strong>Angeborenes vs. Gelerntes</strong><strong>Reflex:</strong> Einfache, angeborene Reiz-Reaktions-Kopplung (Lidschluss). <strong>Instinkt:</strong> Komplexeres angeborenes Verhaltensmuster. <strong>Prägung:</strong> Irreversibler Lernprozess in einer sensiblen frühen Phase (z.B. Gänseküken).</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(160,126,212,0.15);color:var(--t4)">Psychologie</span>Gedächtnis, Vergessen &amp; Lernstrategien</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="grid2">
+        <div class="mini">
+          <h4>Das Vergessen</h4>
+          <p>Wird stark durch Ebbinghaus' Vergessenskurve beschrieben. Das Wichtigste dagegen sind gezielte <strong>Wiederholungen</strong>. Durch kognitive Aktivierung und Wiederholungsintervalle festigen sich neuronale Spuren.</p>
+        </div>
+        <div class="mini">
+          <h4>Lernstrategien &amp; Kritisches Denken</h4>
+          <p>Wissen muss elaboriert und organisiert werden (Chunking, Loci-Methode). Kritisches Denken ermöglicht die Überprüfung und Hinterfragung der eigenen Lerninhalte auf Logik und Faktenbasis.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ THEMA 05 ══════════════ -->
+<div id="t5" class="tp-section">
+  <div class="tp-banner" style="background:linear-gradient(135deg,#0c4a6e,var(--t5))">
+    <h2>Gesellschaft &amp; soziale Aspekte</h2>
+    <p>Gruppendynamik · Experimente · Rollen · Thomas Hobbes · Soziale Normen</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head open" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(96,184,216,0.15);color:var(--t5)">Psychologie</span>Gruppendynamik, Zugehörigkeit &amp; Rollen</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body open">
+      <div class="grid2">
+        <div class="mini">
+          <h4>Peer Groups &amp; Soziale Normen</h4>
+          <p>Die <em>Peer Group</em> (Gleichaltrigen-Gruppe) stiftet massiv Identität und Zugehörigkeitsgefühl. Die Gruppe legt <strong>Soziale Normen</strong> (Verhaltensregeln) fest, deren Bruch oft mit Ausschluss sanktioniert wird.</p>
+        </div>
+        <div class="mini">
+          <h4>Rollen in der Psychodynamik</h4>
+          <ul class="pts">
+            <li><strong>Alpha:</strong> Der Anführer, lenkt die Gruppe.</li>
+            <li><strong>Beta:</strong> Der Fachmann/Berater, unterstützt Alpha.</li>
+            <li><strong>Gamma:</strong> Die Mitläufer-Position, trägt Alpha.</li>
+            <li><strong>Omega:</strong> Der Außenseiter oder das Opfer/Sündenbock.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(96,184,216,0.15);color:var(--t5)">Psychologie</span>Klassische sozialpsychologische Experimente</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="grid2">
+        <div class="exp">
+          <h4>Milgram-Experiment (1961)</h4>
+          <p>Untersuchte blinden Gehorsam. Auf Anweisung einer Autoritätsperson gaben <strong>65 %</strong> der Versuchspersonen einem Schauspieler angeblich tödliche Elektroschocks bis hinauf zu <strong>450 Volt</strong>.</p>
+        </div>
+        <div class="exp">
+          <h4>Stanford-Prison-Experiment (Zimbardo, 1971)</h4>
+          <p>Studenten als Wärter/Gefangene. Zeigt die Macht der Situation und von <strong>Deindividuation</strong> (z.B. durch Uniformen/Nummern). Wärter wurden so sadistisch, dass das Experiment nach nur <strong>6 Tagen</strong> abgebrochen wurde.</p>
+        </div>
+      </div>
+      <p class="body"><strong>Asch-Experiment:</strong> Untersuchte den Gruppenzwang/Konformität anhand des offensichtlich falschen Einschätzens von Linienlängen, nur weil die Gruppe es vorgibt.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(126,200,164,0.15);color:var(--t2)">Philosophie</span>Der egoistische Mensch (Thomas Hobbes)</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="key" style="border-color:var(--t5)"><strong>Homo homini lupus</strong>„Der Mensch ist dem Menschen ein Wolf." – Thomas Hobbes vertritt in seinem Werk <em>Leviathan</em> ein extrem negatives Menschenbild, geprägt von den Eindrücken des 30-jährigen Krieges.</div>
+      <div class="grid2">
+        <div class="mini">
+          <h4>Naturzustand</h4>
+          <p>Ohne Staat herrscht ein ständiger Krieg aller gegen alle. Der Mensch ist von Natur aus rein egoistisch auf Selbsterhalt aus. Hobbes nennt 3 Hauptkonfliktgründe: <strong>Konkurrenzdenken, Misstrauen und Ruhmsucht</strong>.</p>
+        </div>
+        <div class="mini">
+          <h4>Der Leviathan</h4>
+          <p>Um diesen zerstörerischen Zustand zu beenden, geben die Menschen freiwillig ihre Freiheit an einen absoluten Herrscher (Staat / Leviathan) ab. Dieser hat das Gewaltmonopol und stiftet Frieden.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ THEMA 06 ══════════════ -->
+<div id="t6" class="tp-section">
+  <div class="tp-banner" style="background:linear-gradient(135deg,#14532d,var(--t6))">
+    <h2>Grundfragen der menschlichen Existenzweise</h2>
+    <p>Psychische Krisen &amp; Störungen · Zwangsstörungen · Schizophrenie · Motivation</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head open" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(126,200,126,0.15);color:var(--t6)">Psychologie</span>Psychische Störungen &amp; Krisen</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body open">
+      <p class="body">Nicht jedes abweichende Verhalten ist eine psychische Störung. Entscheidend für die Diagnose ist ein starker <strong>Leidensdruck</strong>, funktionelle Behinderung im Alltag sowie das Verletzen von sozialen/statistischen Normen. Man unterscheidet primär zwischen Neurosen (leichter, Realität bleibt erhalten) und Psychosen (schwerer, Realitätsverlust).</p>
+      <div class="grid2">
+        <div class="mini">
+          <h4>Zwangsstörungen (Neurose)</h4>
+          <p>Betroffene leiden unter wiederkehrenden, oft als unsinnig erkannten Zwangsgedanken (z.B. Kontrollwahn) oder Zwangshandlungen (z.B. exzessives Händewaschen). Werden sie nicht ausgeführt, entsteht massive Angst.</p>
+        </div>
+        <div class="mini">
+          <h4>Schizophrene Störungen (Psychose)</h4>
+          <p>Ein schwerwiegender Realitätsverlust. Typische Positivsymptome: Wahnvorstellungen (Verfolgungswahn), Halluzinationen (Stimmen hören) und unzusammenhängendes Denken.</p>
+        </div>
+        <div class="mini">
+          <h4>Borderline (Persönlichkeitsstörung)</h4>
+          <p>Emotionale Instabilität. Schwanken rasant zwischen Extremen. Oft verbunden mit tiefem Leeregefühl, Selbstverletzungen und starken Verlustängsten.</p>
+        </div>
+        <div class="mini">
+          <h4>Ess- und Suchtstörungen</h4>
+          <p>Kompensation psychischer Konflikte. Z.B. Anorexia nervosa (Magersucht), Bulimie. Sucht als physische und psychische Abhängigkeit, gekennzeichnet durch Toleranzbildung und Entzugssymptome.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(126,200,126,0.15);color:var(--t6)">Psychologie</span>Motivation: Von Reiss bis Flow</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="grid3">
+        <div class="mini"><h4>Triebreduktionstheorie</h4><p>Unsere Motivation basiert physiologisch darauf, biologische Triebe (Hunger, Durst) zu befriedigen, um das innere Gleichgewicht (Homöostase) wiederherzustellen.</p></div>
+        <div class="mini"><h4>16 Lebensmotive (Reiss)</h4><p>Jeder Mensch hat 16 Grundmotive (z.B. Macht, Unabhängigkeit, Neugier, Familie), die individuell wie ein psychologischer Fingerabdruck gewichtet sind.</p></div>
+        <div class="mini"><h4>Extrinsisch / Intrinsisch</h4><p>Extrinsisch: Motivation durch äußere Reize (Geld, Noten). Intrinsisch: Die Tätigkeit wird um ihrer selbst willen ausgeübt (Interesse, Freude).</p></div>
+      </div>
+      <div class="key" style="border-color:var(--t6)"><strong>Das Flow-Erlebnis (Csíkszentmihályi)</strong>Das völlige, selbstvergessene Aufgehen in einer intrinsisch motivierten Tätigkeit. Entsteht genau dann, wenn eine perfekte Balance zwischen den eigenen Fähigkeiten und den Anforderungen der Aufgabe herrscht.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ THEMA 07 ══════════════ -->
+<div id="t7" class="tp-section">
+  <div class="tp-banner" style="background:linear-gradient(135deg,#581c87,var(--t7))">
+    <h2>Anthropologie &amp; Persönlichkeit</h2>
+    <p>Tiefenpsychologie · Freud · Instanzenmodell · Mensch, Tier &amp; Maschine</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head open" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(192,126,212,0.15);color:var(--t7)">Psychologie</span>Sigmund Freud &amp; Die Psychoanalyse</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body open">
+      <p class="body">Freud begründete die Psychoanalyse. Er ging davon aus, dass wir maßgeblich von unbewussten Trieben und Kindheitskonflikten gesteuert werden.</p>
+      <div class="grid2">
+        <div class="mini">
+          <h4>Das Eisbergmodell</h4>
+          <p>Nur ca. 10–20 % unserer Psyche sind <strong>bewusst</strong> (die Spitze über Wasser). Darunter liegt das <strong>Vorbewusste</strong> (Erinnerungen, die wir aktiv abrufen können) und tief verborgen das <strong>Unbewusste</strong> (verdrängte Triebe, Traumata, Wünsche).</p>
+        </div>
+        <div class="mini">
+          <h4>Forschungsmethoden</h4>
+          <p>Wie kommt man ans Unbewusste? Freud nutzte <strong>Traumdeutung</strong> (manifeste vs. latente Trauminhalte), <strong>Hypnose</strong>, freies Assoziieren und die Analyse von <strong>Fehlleistungen</strong> (z.B. der „Freud'sche Versprecher").</p>
+        </div>
+      </div>
+      <h4 class="sub">Das Instanzenmodell (Persönlichkeitsstruktur)</h4>
+      <div class="grid3">
+        <div class="theorist"><h4>Das Es</h4><p>Das Lustprinzip. Sitz der unbewussten Triebe, Instinkte und Bedürfnisse. Verlangt nach sofortiger Befriedigung, ohne Rücksicht auf Logik.</p></div>
+        <div class="theorist"><h4>Das Über-Ich</h4><p>Das Moralprinzip. Die verinnerlichten Normen, Werte und Verbote der Gesellschaft und Eltern. Fungiert als das „Gewissen".</p></div>
+        <div class="theorist"><h4>Das Ich</h4><p>Das Realitätsprinzip. Der rationale Vermittler. Versucht, die triebhaften Wünsche des <em>Es</em> mit den moralischen Verboten des <em>Über-Ichs</em> in der realen Welt in Einklang zu bringen.</p></div>
+      </div>
+      <div class="key" style="border-color:var(--t7)"><strong>Abwehrmechanismen des Ichs</strong>Wenn der Konflikt zwischen Es und Über-Ich zu groß wird, nutzt das Ich unbewusste Schutzmechanismen. Z. B. <strong>Verdrängung</strong> (Verbannen ins Unbewusste), <strong>Identifikation</strong> (Aneignen fremder Eigenschaften), <strong>Projektion</strong> (eigene Fehler bei anderen suchen) oder <strong>Sublimierung</strong> (Triebe in z.B. Kunst umwandeln).</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(126,200,164,0.15);color:var(--t2)">Philosophie</span>Unterscheidung: Mensch, Tier &amp; KI</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="grid2">
+        <div class="mini">
+          <h4>Mensch vs. Tier</h4>
+          <p>Ein wichtiges Abgrenzungsfeld in der Anthropologie. Philosophisch trennt uns oft die Sprache, Moralität und Selbstreflexion. Biologisch verbindet uns die Evolution (Darwin). Gehlen sieht den Menschen als instinktarmes „Mängelwesen", das Kultur als Ausgleich schaffen muss.</p>
+        </div>
+        <div class="mini">
+          <h4>Künstliche Intelligenz &amp; Cyborgs</h4>
+          <p>Die Grenze Mensch-Maschine verschwimmt. Kritik an KI beleuchtet oft das fehlende echte Bewusstsein (Qualia) und Empathie.<br><strong>Transhumanismus:</strong> Eine Bewegung, die durch Technologie die biologischen Grenzen des Menschen überwinden und ihn intellektuell/physisch optimieren will.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ THEMA 08 ══════════════ -->
+<div id="t8" class="tp-section">
+  <div class="tp-banner" style="background:linear-gradient(135deg,#7f1d1d,var(--t8))">
+    <h2>Grundfragen der Ethik</h2>
+    <p>Moral &amp; Ethik · Utilitarismus · Kant · Medizinethik &amp; Sterbehilfe</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head open" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(224,122,122,0.15);color:var(--t8)">Philosophie</span>Unterscheidung: Moral vs. Ethik</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body open">
+      <p class="body">Wichtig für die Prüfung: Die strikte begriffliche Trennung!<br>
+      <strong>Moral:</strong> Die gelebten, konkreten Verhaltensregeln und das <em>Wertesystem</em> einer Gesellschaft. Sie ist deskriptiv (beschreibend).<br>
+      <strong>Ethik:</strong> Die philosophische Reflexion und Wissenschaft <em>über</em> die Moral. Sie ist normativ (hinterfragend: Warum ist eine Handlung moralisch?).</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(224,122,122,0.15);color:var(--t8)">Philosophie</span>Klassische Ethische Theorien</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="grid2">
+        <div class="mini">
+          <h4>Pflichtenethik (Kant)</h4>
+          <p>Verantwortung liegt in der Absicht, unabhängig von den Konsequenzen. Kern: Der <strong>Kategorische Imperativ</strong> („Handle nur nach derjenigen Maxime..."). Der Mensch darf nie bloß als Mittel zum Zweck gebraucht werden.</p>
+        </div>
+        <div class="mini">
+          <h4>Utilitarismus (Glück)</h4>
+          <p>Folgenethik nach Bentham/Mill. Fokus auf das Resultat: „Das größtmögliche Glück für die größtmögliche Zahl". Eine Handlung ist dann moralisch gut, wenn sie den Gesamtnutzen maximiert.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" onclick="tog(this)">
+      <h3><span class="src-badge" style="background:rgba(224,122,122,0.15);color:var(--t8)">Philosophie</span>Medizinethik: Der Diskurs um Sterbehilfe</h3>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="body">Ein hochaktuelles Feld der Angewandten Ethik. Im Unterricht habt ihr das besonders intensiv anhand des Buches/Theaterstücks behandelt.</p>
+      <div class="key" style="border-color:var(--t8)"><strong>Ferdinand von Schirachs „Gott"</strong>Das Buch schildert einen fiktiven Gerichtsprozess vor einem Ethikrat: Ein gesunder, alter Mann möchte sterben (assistierter Suizid). Das Stück beleuchtet extrem konträre Sichtweisen:<br>
+      • <strong>Theologische Argumente (Kirche):</strong> Das Leben ist ein Geschenk Gottes und steht nicht zur Disposition des Menschen.<br>
+      • <strong>Medizinische Argumente (Arzt):</strong> Der ärztliche Auftrag ist Lebenserhaltung vs. Linderung von Leid.<br>
+      • <strong>Persönliche/Juristische Argumente:</strong> Das Recht auf absolute Selbstbestimmung und Freiheit eines jeden Menschen am Ende des Lebens.</div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>PP Matura – Themenpool 1–8 · Psychologie &amp; Philosophie · Viel Erfolg bei der Prüfung! 🎓</footer>
+
+<div class="done-counter" id="done-counter"></div>
+<div class="rating-legend" id="rating-legend"></div>
+<div class="score-overview-backdrop" id="score-overview-backdrop" onclick="closeScoreOverview()"></div>
+<div class="score-overview-panel" id="score-overview-panel">
+  <h3>📊 Mein Wissensstand <button onclick="closeScoreOverview()">✕</button></h3>
+  <div class="overview-grid"></div>
+</div>
+
+<script>
+// ── NAV & CARDS ──────────────────────────────────────────────────────
+function show(id, btn) {
+  document.querySelectorAll('.tp-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function tog(head) {
+  const body = head.nextElementSibling;
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  head.classList.toggle('open', !open);
+}
+function setMode(mode) {
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+  // compact mode: collapse all card-bodies
+  document.querySelectorAll('.card-body').forEach(b => {
+    if (mode === 'short') { b.classList.remove('open'); b.previousElementSibling.classList.remove('open'); }
+  });
+}
+
+// ── STORAGE ──────────────────────────────────────────────────────────
+const DONE_KEY       = 'pp_done_v3';
+const RATING_KEY     = 'pp_ratings_v3';
+const IRRELEVANT_KEY = 'pp_irr_v3';
+function getDoneSet()        { try{return new Set(JSON.parse(localStorage.getItem(DONE_KEY)||'[]'));}catch{return new Set();} }
+function saveDoneSet(s)      { localStorage.setItem(DONE_KEY, JSON.stringify([...s])); }
+function getRatings()        { try{return JSON.parse(localStorage.getItem(RATING_KEY)||'{}');}catch{return {};} }
+function saveRatings(o)      { localStorage.setItem(RATING_KEY, JSON.stringify(o)); }
+function getIrrelevantSet()  { try{return new Set(JSON.parse(localStorage.getItem(IRRELEVANT_KEY)||'[]'));}catch{return new Set();} }
+function saveIrrelevantSet(s){ localStorage.setItem(IRRELEVANT_KEY, JSON.stringify([...s])); }
+
+// ── CONSTANTS ─────────────────────────────────────────────────────────
+const SCORE_EMOJIS  = [null,'⚠️','😰','🤔','👍','⭐'];
+const SCORE_ANIM    = [null,'score-danger','score-warning','score-ok','score-good','score-perfect'];
+const SCORE_COLORS  = [null,'#ef5350','#ff9800','#fdd835','#8bc34a','#4caf50'];
+const RATING_LABELS = ['','Kaum bekannt','Unsicher','Mittel','Gut','Top'];
+const TAB_NAMES     = {t1:'Wahrnehmung',t2:'Wissenschaft',t3:'Entwicklung',t4:'Lernen',t5:'Gesellschaft',t6:'Existenz',t7:'Anthropologie',t8:'Ethik'};
+
+// ── INIT ──────────────────────────────────────────────────────────────
+let _idx = 0;
+function initCards() {
+  document.querySelectorAll('.card').forEach(card => {
+    if (card.querySelector('.card-controls')) return;
+    const id = 'pp3-' + (_idx++);
+    card.dataset.doneId = id;
+
+    const ctrl = document.createElement('div');
+    ctrl.className = 'card-controls';
+
+    for (let v = 1; v <= 5; v++) {
+      const dot = document.createElement('button');
+      dot.className = 'rating-dot'; dot.dataset.val = v;
+      dot.title = RATING_LABELS[v];
+      dot.addEventListener('click', e => { e.stopPropagation(); const cur = parseInt(card.dataset.rating||'0'); setRating(card, cur===v?0:v); });
+      ctrl.appendChild(dot);
+    }
+
+    const doneBtn = document.createElement('button');
+    doneBtn.className = 'done-btn'; doneBtn.title = 'Als bekannt markieren';
+    doneBtn.addEventListener('click', e => { e.stopPropagation(); toggleDone(card); });
+    ctrl.appendChild(doneBtn);
+
+    const irrBtn = document.createElement('button');
+    irrBtn.className = 'irr-btn'; irrBtn.title = 'Nicht relevant';
+    irrBtn.addEventListener('click', e => { e.stopPropagation(); toggleIrrelevant(card); });
+    ctrl.appendChild(irrBtn);
+
+    card.appendChild(ctrl);
+  });
+
+  const ratings = getRatings(), done = getDoneSet(), irr = getIrrelevantSet();
+  document.querySelectorAll('.card[data-done-id]').forEach(card => {
+    const id = card.dataset.doneId;
+    if (ratings[id]) applyRating(card, ratings[id]);
+    if (done.has(id))  card.classList.add('is-done');
+    if (irr.has(id))   card.classList.add('is-irrelevant');
+  });
+
+  updateAllTabScores();
+  updateCounter();
+  updateRatingLegend();
+}
+
+// ── RATING ────────────────────────────────────────────────────────────
+function setRating(card, val) {
+  const id = card.dataset.doneId;
+  const ratings = getRatings();
+  if (val===0) delete ratings[id]; else ratings[id] = val;
+  saveRatings(ratings);
+  applyRating(card, val);
+  updateAllTabScores();
+  updateRatingLegend();
+}
+function applyRating(card, val) {
+  if (val) card.dataset.rating = val; else card.removeAttribute('data-rating');
+  card.querySelectorAll('.rating-dot').forEach(d => d.classList.toggle('active', parseInt(d.dataset.val) <= val));
+}
+
+// ── DONE ──────────────────────────────────────────────────────────────
+function toggleDone(card) {
+  const id = card.dataset.doneId, done = getDoneSet();
+  if (done.has(id)) { done.delete(id); card.classList.remove('is-done'); }
+  else              { done.add(id);    card.classList.add('is-done'); }
+  saveDoneSet(done); updateCounter();
+}
+
+// ── IRRELEVANT ────────────────────────────────────────────────────────
+function toggleIrrelevant(card) {
+  const id = card.dataset.doneId, irr = getIrrelevantSet();
+  if (irr.has(id)) { irr.delete(id); card.classList.remove('is-irrelevant'); }
+  else {
+    irr.add(id); card.classList.add('is-irrelevant');
+    card.classList.remove('is-done');
+    const done = getDoneSet(); done.delete(id); saveDoneSet(done);
+  }
+  saveIrrelevantSet(irr); updateAllTabScores(); updateCounter();
+}
+
+// ── COUNTER ───────────────────────────────────────────────────────────
+function updateCounter() {
+  const total = document.querySelectorAll('.card[data-done-id]').length;
+  const doneN = document.querySelectorAll('.card[data-done-id].is-done').length;
+  const el = document.getElementById('done-counter');
+  if (!el) return;
+  if (doneN > 0) { el.classList.add('visible'); el.innerHTML = '<span>'+doneN+'</span> / '+total+' abgehakt'; }
+  else el.classList.remove('visible');
+}
+
+// ── RATING LEGEND ─────────────────────────────────────────────────────
+function updateRatingLegend() {
+  const el = document.getElementById('rating-legend');
+  if (!el) return;
+  const counts = [0,0,0,0,0];
+  Object.values(getRatings()).forEach(v => { if(v>=1&&v<=5) counts[v-1]++; });
+  const total = counts.reduce((a,b)=>a+b,0);
+  if (!total) { el.classList.remove('visible'); return; }
+  el.classList.add('visible');
+  el.innerHTML = counts.map((c,i) => c>0 ? `<div class="rating-legend-row"><div class="rating-legend-dot" style="background:${SCORE_COLORS[i+1]}"></div><span style="color:${SCORE_COLORS[i+1]}">${RATING_LABELS[i+1]}</span><span style="margin-left:auto;padding-left:.6rem">${c}x</span></div>` : '').join('');
+}
+
+// ── TAB SCORES ────────────────────────────────────────────────────────
+function getTabScore(tabId) {
+  const panel = document.getElementById(tabId);
+  if (!panel) return null;
+  const ratings = getRatings(), irr = getIrrelevantSet();
+  const items = panel.querySelectorAll('.card[data-done-id]');
+  let sum=0, count=0;
+  items.forEach(el => {
+    if (irr.has(el.dataset.doneId)) return;
+    const r = ratings[el.dataset.doneId];
+    if (r) { sum+=r; count++; }
+  });
+  if (!count) return null;
+  return { avg: sum/count, count, total: items.length };
+}
+
+function updateAllTabScores() {
+  ['t1','t2','t3','t4','t5','t6','t7','t8'].forEach((id, i) => {
+    const btn = document.querySelectorAll('.nav-btn')[i];
+    if (!btn) return;
+    btn.querySelector('.tab-score')?.remove();
+    const r = getTabScore(id);
+    if (!r) return;
+    const lvl = Math.round(r.avg);
+    const badge = document.createElement('span');
+    badge.className = 'tab-score ' + SCORE_ANIM[lvl];
+    badge.textContent = SCORE_EMOJIS[lvl];
+    badge.title = r.count+'/'+r.total+' bewertet, Ø '+r.avg.toFixed(1);
+    btn.appendChild(badge);
+  });
+}
+
+// ── OVERVIEW PANEL ────────────────────────────────────────────────────
+function openScoreOverview() {
+  const panel = document.getElementById('score-overview-panel');
+  const backdrop = document.getElementById('score-overview-backdrop');
+  if (!panel) return;
+  const irr = getIrrelevantSet();
+  let grid = '';
+  ['t1','t2','t3','t4','t5','t6','t7','t8'].forEach(id => {
+    const r = getTabScore(id);
+    const name = TAB_NAMES[id];
+    const panelEl = document.getElementById(id);
+    const allCards = panelEl ? [...panelEl.querySelectorAll('.card[data-done-id]')] : [];
+    const allIrr = allCards.length > 0 && allCards.every(c => irr.has(c.dataset.doneId));
+    const irrCls = allIrr ? ' ov-irrelevant' : '';
+    if (!r) {
+      grid += `<div class="overview-item${irrCls}"><span class="ov-emoji">❔</span><span class="ov-name">${name}</span><span class="ov-score" style="color:var(--muted)">—</span></div>`;
+      return;
+    }
+    const lvl = Math.round(r.avg), pct = (r.avg/5*100).toFixed(0);
+    grid += `<div class="overview-item${irrCls}" style="border-color:${SCORE_COLORS[lvl]}"><span class="ov-emoji">${SCORE_EMOJIS[lvl]}</span><span class="ov-name">${name}</span><div class="ov-bar-wrap"><div class="ov-bar" style="width:${pct}%;background:${SCORE_COLORS[lvl]}"></div></div><span class="ov-score" style="color:${SCORE_COLORS[lvl]}">${r.avg.toFixed(1)}</span></div>`;
+  });
+  panel.querySelector('.overview-grid').innerHTML = grid;
+  panel.classList.add('open');
+  backdrop.classList.add('open');
+}
+function closeScoreOverview() {
+  document.getElementById('score-overview-panel')?.classList.remove('open');
+  document.getElementById('score-overview-backdrop')?.classList.remove('open');
+}
+
+document.addEventListener('DOMContentLoaded', () => setTimeout(initCards, 30));
+</script>
+</body>
+</html>
